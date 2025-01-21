@@ -9,24 +9,6 @@ export type Card = {
 export type GameState = 'inactive' | 'active' | 'selecting' | 'match-found' | 'no-match' | 'win'
 
 const BOARD_SIZE = 8
-const availableCards: Card[] = [
-  { id: 0, value: 'A' },
-  { id: 0, value: 'B' },
-  { id: 0, value: 'C' },
-  { id: 0, value: 'D' },
-  { id: 0, value: 'E' },
-  { id: 0, value: 'F' },
-  { id: 0, value: 'G' },
-  { id: 0, value: 'H' },
-  { id: 0, value: 'I' },
-  { id: 0, value: 'J' },
-  { id: 0, value: 'K' },
-  { id: 0, value: 'L' },
-  { id: 0, value: 'M' },
-  { id: 0, value: 'N' },
-  { id: 0, value: 'O' },
-  { id: 0, value: 'P' },
-]
 
 const state = ref<GameState>('inactive')
 const gameDeck = ref<Card[]>([])
@@ -45,51 +27,59 @@ const {
   state.value = 'active' 
 }, 3000, { immediate: false })
 
-const { shuffle } = useDeckUtils()
+const { availableCards, shuffle } = useDeckUtils()
 
 export function useGameManager() {
   function startGame() {
+    // only allow starting game from `inactive` state
     if(state.value !== 'inactive') return
 
+    // duplicate available cards and set unique ids
     const gameCards = availableCards.slice(0, BOARD_SIZE)
     gameDeck.value = shuffle(gameCards.concat(gameCards).map((card, index) => ({ ...card, id: index })))
+
+    // set initial state
     matchedCards.value = []
     flippedCards.value = []
     state.value = 'active'
   }
 
   function flipCard(card: Card) {
-    if(state.value === 'win') return
+    // don't flip card if it is already flipped over
     if(cardIsFlipped(card) || cardIsMatched(card)) return
 
+    // reset flipped cards if timer hasn't fired yet
     if(flippedCards.value.length >= 2 || ['no-match', 'match-found'].includes(state.value)) {
       flippedCards.value = []
+      state.value = 'active'
     }
 
     stopTimer()
-    state.value = 'active'
     flippedCards.value.push(card)
 
-    if(flippedCards.value.length === 2) {
-      // match found
-      if(flippedCards.value[0].value === flippedCards.value[1].value) {
-        matchedCards.value.push(flippedCards.value[0].value)
-        flippedCards.value = []
-
-        state.value = matchedCards.value.length === BOARD_SIZE ? 'win' : 'match-found'
-      }
-
-      // no match
-      else {
-        state.value = 'no-match'
-      }
-
-      if(state.value !== 'win') {
-        startTimer()
-      }
-    }
-    else{
+    // if we only have one card flipped, set state and bail
+    if(flippedCards.value.length === 1) {
       state.value = 'selecting'
+      return
+    }
+
+    // There should always be 2 flipped cards after this point
+
+    // match found
+    if(flippedCards.value[0].value === flippedCards.value[1].value) {
+      matchedCards.value.push(flippedCards.value[0].value)
+      flippedCards.value = []
+
+      state.value = matchedCards.value.length === BOARD_SIZE ? 'win' : 'match-found'
+    }
+
+    // no match
+    else {
+      state.value = 'no-match'
+    }
+
+    if(state.value !== 'win') {
+      startTimer()
     }
   }
 
