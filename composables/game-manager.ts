@@ -65,7 +65,7 @@ export function useGameManager() {
   function flipCard(card: Card) {
     if(state.value === 'win') return
 
-    if(flippedCards.value.length >= 2) {
+    if(flippedCards.value.length >= 2 || ['no-match', 'match-found'].includes(state.value)) {
       flippedCards.value = []
     }
 

@@ -5578,6 +5578,13 @@ vue-devtools-stub@^0.1.0:
   resolved "https://registry.yarnpkg.com/vue-devtools-stub/-/vue-devtools-stub-0.1.0.tgz#a65b9485edecd4273cedcb8102c739b83add2c81"
   integrity sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==
 
+vue-flip@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/vue-flip/-/vue-flip-3.0.2.tgz#810a27a1e8c67a59730863dbde7f859d0fd6436a"
+  integrity sha512-caHfyboV2ctdEg+sKVlcuGvja8yq2Cq11TKFhPj/EJEd43q+c6QE2qfoznjprGwYNf+HWfB21PFJFXXDrIgJtg==
+  dependencies:
+    vue "^3.2.37"
+
 vue-router@^4.5.0, vue-router@latest:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.5.0.tgz#58fc5fe374e10b6018f910328f756c3dae081f14"
@@ -5585,7 +5592,7 @@ vue-router@^4.5.0, vue-router@latest:
   dependencies:
     "@vue/devtools-api" "^6.6.4"
 
-vue@^3.5.13, vue@latest:
+vue@^3.2.37, vue@^3.5.13, vue@latest:
   version "3.5.13"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.5.13.tgz#9f760a1a982b09c0c04a867903fc339c9f29ec0a"
   integrity sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==
