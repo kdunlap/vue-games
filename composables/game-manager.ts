@@ -7,6 +7,7 @@ export type Card = {
 }
 
 export type GameState = 'inactive' | 'active' | 'selecting' | 'match-found' | 'no-match' | 'win'
+
 const BOARD_SIZE = 8
 const availableCards: Card[] = [
   { id: 0, value: 'A' },
@@ -27,14 +28,7 @@ const availableCards: Card[] = [
   { id: 0, value: 'P' },
 ]
 
-function shuffle(array: Card[]) { 
-  return array.map((a) => ({ sort: Math.random(), value: a }))
-        .sort((a, b) => a.sort - b.sort)
-        .map((a) => a.value); 
-}; 
-
 const state = ref<GameState>('inactive')
-
 const gameDeck = ref<Card[]>([])
 const flippedCards = ref<Card[]>([])
 const matchedCards = ref<String[]>([])
@@ -51,6 +45,8 @@ const {
   state.value = 'active' 
 }, 3000, { immediate: false })
 
+const { shuffle } = useDeckUtils()
+
 export function useGameManager() {
   function startGame() {
     if(state.value !== 'inactive') return
@@ -64,6 +60,7 @@ export function useGameManager() {
 
   function flipCard(card: Card) {
     if(state.value === 'win') return
+    if(cardIsFlipped(card) || cardIsMatched(card)) return
 
     if(flippedCards.value.length >= 2 || ['no-match', 'match-found'].includes(state.value)) {
       flippedCards.value = []
@@ -87,7 +84,9 @@ export function useGameManager() {
         state.value = 'no-match'
       }
 
-      startTimer()
+      if(state.value !== 'win') {
+        startTimer()
+      }
     }
     else{
       state.value = 'selecting'
@@ -95,7 +94,7 @@ export function useGameManager() {
   }
 
   async function resetGame() {
-    if(confirm("Are you sure you want to reset the game?")) {
+    if(state.value === 'win' || confirm("Are you sure you want to reset the game?")) {
       state.value = 'inactive'
       flippedCards.value = []
       gameDeck.value = []
