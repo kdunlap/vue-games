@@ -94,10 +94,12 @@ export function useGameManager() {
     }
   }
 
-  function resetGame() {
-    state.value = 'inactive'
-    flippedCards.value = []
-    gameDeck.value = []
+  async function resetGame() {
+    if(confirm("Are you sure you want to reset the game?")) {
+      state.value = 'inactive'
+      flippedCards.value = []
+      gameDeck.value = []
+    }
   }
 
   function cardIsFlipped(card: Card) {
