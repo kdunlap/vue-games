@@ -1,6 +1,11 @@
 <template>
   <div class="w-fit">
-    <div class="grid grid-cols-4 grid-rows-4 grid-flow-dense gap-4">
+    <div class="flex justify-stretch">
+      <Controls />
+      <Status class="flex-1" />
+    </div>
+
+    <div class="grid grid-cols-4 grid-rows-4 grid-flow-dense gap-4 mt-8">
       <Card 
         v-for="card in cards"
         :card="card"
@@ -10,30 +15,5 @@
 </template>
 
 <script setup lang="ts">
-import type { Card } from './Card.vue'
-
-
-const cards: Card[] = [
-  { value: 'A' },
-  { value: 'B' },
-  { value: 'C' },
-  { value: 'D' },
-  { value: 'E' },
-  { value: 'F' },
-  { value: 'G' },
-  { value: 'H' },
-  { value: 'I' },
-  { value: 'J' },
-  { value: 'K' },
-  { value: 'L' },
-  { value: 'M' },
-  { value: 'N' },
-  { value: 'O' },
-  { value: 'P' },
-]
-
+const { cards } = useGameManager()
 </script>
-
-<style scoped>
-
-</style>
