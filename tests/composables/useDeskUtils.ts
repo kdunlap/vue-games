@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { useDeckUtils } from '~/composables/deck-utils'
+import { useDeckUtils } from '~/composables/useDeckUtils'
 
 describe('useDeckUtils: shuffle()', () => {
   it('should change the order of the resulting array', () => {

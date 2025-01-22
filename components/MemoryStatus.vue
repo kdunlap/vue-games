@@ -9,5 +9,9 @@
 </template>
 
 <script setup lang="ts">
-const { state } = useMemoryGameManager()
+type Props = {
+  state: string
+}
+const { state } = defineProps<Props>()
+
 </script>

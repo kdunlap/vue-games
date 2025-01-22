@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { useMemoryGameManager, type MemoryCard } from '~/composables/memory-game-manager'
+import { useMemoryGameManager, type MemoryCard } from '~/composables/useMemoryGameManager'
 
 const { confirmMock } = vi.hoisted(() => ({
   confirmMock: vi.fn()
