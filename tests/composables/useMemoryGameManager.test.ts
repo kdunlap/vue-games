@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { useMemoryGameManager, type MemoryCard } from '~/composables/useMemoryGameManager'
+import { useMemoryGameManager, FLIPPED_CARD_TIMEOUT, type MemoryCard } from '~/composables/useMemoryGameManager'
 
 const { confirmMock } = vi.hoisted(() => ({
   confirmMock: vi.fn()
@@ -109,7 +109,7 @@ describe('useMemoryGameManager', () => {
     expect(state.value).toBe('active')
   })
   it('should not flip more than 2 cards at once', () => {
-    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGameManager()
+    const { startGame, flipCard, cardIsFlipped, cards } = useMemoryGameManager()
 
     startGame()
     
@@ -137,9 +137,8 @@ describe('useMemoryGameManager', () => {
     resetGame()
     expect(confirmMock).toHaveBeenCalledOnce()
   })
-  
-  // todo - need to figure out how to mock `useTimeoutFn` so that we can spy on `start` and `stop`
-  it.skip('should start the timer after a card is flipped', () => {
+  it('should start a timer after two cards are flipped', () => {
+    vi.useFakeTimers()
     const { startGame, flipCard, cards } = useMemoryGameManager()
 
     startGame()
@@ -150,10 +149,10 @@ describe('useMemoryGameManager', () => {
     flipCard(card)
     flipCard(nonMatch)
 
-    // todo: how can this be mocked to ensure `startTimer` is called and not break the other tests?
-    // expect(startTimeoutMock).toHaveBeenCalledOnce()
-  })
-  it.skip('should stop the previous timer after a card is flipped', () => {
+    expect(vi.getTimerCount()).toBe(1)
 
+    vi.advanceTimersByTime(FLIPPED_CARD_TIMEOUT)
+
+    expect(vi.getTimerCount()).toBe(0)
   })
 })

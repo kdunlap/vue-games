@@ -35,10 +35,7 @@ const gameDeck = ref<MemoryCard[]>([])
 const flippedCards = ref<MemoryCard[]>([])
 const matchedCards = ref<String[]>([])
 
-const {
-  start: startTimer, 
-  stop: stopTimer
-} = useTimeoutFn(() => {
+const { start: startTimer } = useTimeoutFn(() => {
   if(state.value === 'win') return
 
   if(state.value === 'no-match') {
@@ -71,7 +68,6 @@ export function useMemoryGameManager() {
       state.value = 'active'
     }
 
-    stopTimer()
     flippedCards.value.push(card)
 
     // if we only have one card flipped, set state and bail
@@ -96,6 +92,7 @@ export function useMemoryGameManager() {
     }
 
     if(state.value !== 'win') {
+      console.log("start timer")
       startTimer()
     }
   }
