@@ -18,7 +18,7 @@
           'bg-green-300': isMatched
         }"
       >
-        {{ card.value }}
+        {{ isFlipped ? card.value : '' }}
       </div>
     </template>
   </vue-flip>

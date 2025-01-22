@@ -3,37 +3,35 @@ import { useTimeoutFn } from '@vueuse/core'
 
 export type Card = {
   id: Number
-  value: String
+  value: string
 }
 
 export type GameState = 'inactive' | 'active' | 'selecting' | 'match-found' | 'no-match' | 'win'
 
-const BOARD_SIZE = 8
+export const BOARD_SIZE = 8
+export const FLIPPED_CARD_TIMEOUT = 3000
 
 const state = ref<GameState>('inactive')
 const gameDeck = ref<Card[]>([])
 const flippedCards = ref<Card[]>([])
 const matchedCards = ref<String[]>([])
 
-const { 
+const {
   start: startTimer, 
   stop: stopTimer
-} = useTimeoutFn(() => { 
+} = useTimeoutFn(() => {
   if(state.value === 'win') return
 
   if(state.value === 'no-match') {
     flippedCards.value = []
   }
   state.value = 'active' 
-}, 3000, { immediate: false })
-
-const { availableCards, shuffle } = useDeckUtils()
+}, FLIPPED_CARD_TIMEOUT, { immediate: false })
 
 export function useGameManager() {
-  function startGame() {
-    // only allow starting game from `inactive` state
-    if(state.value !== 'inactive') return
+  const { availableCards, shuffle } = useDeckUtils()
 
+  function startGame() {
     // duplicate available cards and set unique ids
     const gameCards = availableCards.slice(0, BOARD_SIZE)
     gameDeck.value = shuffle(gameCards.concat(gameCards).map((card, index) => ({ ...card, id: index })))
@@ -101,7 +99,6 @@ export function useGameManager() {
 
   return {
     cards: gameDeck,
-    flippedCards,
     state,
     startGame,
     resetGame,
