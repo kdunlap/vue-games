@@ -3,8 +3,18 @@ import { mount } from '@vue/test-utils'
 import MemoryControls from '~/components/MemoryControls.vue'
 
 describe('MemoryControls.vue', () => {
-  it('should render', () => {
+  it('should render `Start Game` button initially', () => {
     const wrapper = mount(MemoryControls)
-    expect(wrapper).toBeTruthy()
+    const button = wrapper.find('button')
+    expect(button.text()).toBe('Start Game')
+  })
+  it('should render `Reset Game` after game has been started', async () => {
+    const { startGame } = useMemoryGameManager()
+    startGame()
+
+    const wrapper = mount(MemoryControls)
+    const button = wrapper.find('button')
+
+    expect(button.text()).toBe('Reset Game')
   })
 })
