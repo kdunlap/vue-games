@@ -9,5 +9,5 @@
 </template>
 
 <script setup lang="ts">
-const { state } = useGameManager()
+const { state } = useMemoryGameManager()
 </script>

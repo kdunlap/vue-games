@@ -1,12 +1,12 @@
 <template>
   <div class="w-fit">
     <div class="flex justify-stretch">
-      <Controls />
-      <Status class="flex-1" />
+      <MemoryControls />
+      <MemoryStatus class="flex-1" />
     </div>
 
     <div class="grid grid-cols-4 grid-rows-4 grid-flow-dense gap-4 mt-8">
-      <Card 
+      <MemoryCard 
         v-for="card in cards"
         :card="card"
       />
@@ -15,5 +15,5 @@
 </template>
 
 <script setup lang="ts">
-const { cards } = useGameManager()
+const { cards } = useMemoryGameManager()
 </script>

@@ -1,29 +1,29 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { useGameManager } from '~/composables/game-manager'
+import { useMemoryGameManager, type MemoryCard } from '~/composables/memory-game-manager'
 
 const { confirmMock } = vi.hoisted(() => ({
   confirmMock: vi.fn()
 }))
 vi.stubGlobal('confirm', confirmMock)
 
-describe('useGameManager', () => {
+describe('useMemoryGameManager', () => {
   afterEach(() => {
-    const { resetGame } = useGameManager()
+    const { resetGame } = useMemoryGameManager()
     resetGame()
     
     vi.resetAllMocks()
   })
   it('should initialize to `inactive` state', () => {
-    const { state } = useGameManager()
+    const { state } = useMemoryGameManager()
     expect(state.value).toBe('inactive')
   })
   it('should initialize a deck of pairs', () => {
-    const { startGame, cards } = useGameManager()
+    const { startGame, cards } = useMemoryGameManager()
 
     startGame()
 
     const found: {[key:string]: number} = {}
-    cards.value.forEach((c: Card) => {
+    cards.value.forEach((c: MemoryCard) => {
       if(found[c.value]) {
         found[c.value] += 1
       }
@@ -36,14 +36,14 @@ describe('useGameManager', () => {
     expect(Object.values(found).every(total => total === 2)).toBe(true)
   })
   it('should have `active` state after starting the game', () => {
-    const { startGame, state } = useGameManager()
+    const { startGame, state } = useMemoryGameManager()
 
     startGame()
 
     expect(state.value).toBe('active')
   })
   it('should flip a single card and be in the `selecting` state', () => {
-    const { startGame, flipCard, cardIsFlipped, cards, state } = useGameManager()
+    const { startGame, flipCard, cardIsFlipped, cards, state } = useMemoryGameManager()
 
     startGame()
     
@@ -54,12 +54,12 @@ describe('useGameManager', () => {
     expect(cardIsFlipped(card)).toBe(true)
   })
   it('should flip two matching cards and be in the `match-found` state', () => {
-    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useGameManager()
+    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGameManager()
 
     startGame()
     
     const card = cards.value[0]
-    const match = cards.value.find(c => c.value === card.value && c.id !== card.id)
+    const match = cards.value.find(c => c.value === card.value && c.id !== card.id) as MemoryCard
     
     flipCard(card)
     flipCard(match)
@@ -72,12 +72,12 @@ describe('useGameManager', () => {
     expect(cardIsMatched(match)).toBe(true)
   })
   it('should flip two non-matching cards and be in the `match-found` state', () => {
-    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useGameManager()
+    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGameManager()
 
     startGame()
     
     const card = cards.value[0]
-    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id)
+    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id) as MemoryCard
     
     flipCard(card)
     flipCard(nonMatch)
@@ -92,12 +92,12 @@ describe('useGameManager', () => {
   it('should automatically change from `no-match` state to `active` after some time', async () => {    
     vi.useFakeTimers()
 
-    const { startGame, flipCard, cards, state } = useGameManager()
+    const { startGame, flipCard, cards, state } = useMemoryGameManager()
 
     startGame()
     
     const card = cards.value[0]
-    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id)
+    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id) as MemoryCard
     
     flipCard(card)
     flipCard(nonMatch)
@@ -109,13 +109,13 @@ describe('useGameManager', () => {
     expect(state.value).toBe('active')
   })
   it('should not flip more than 2 cards at once', () => {
-    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useGameManager()
+    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGameManager()
 
     startGame()
     
     const card = cards.value[0]
-    const match = cards.value.find(c => c.value === card.value && c.id !== card.id)
-    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id)
+    const match = cards.value.find(c => c.value === card.value && c.id !== card.id) as MemoryCard
+    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id) as MemoryCard
     
     flipCard(card)
     flipCard(nonMatch)
@@ -126,7 +126,7 @@ describe('useGameManager', () => {
     expect(cardIsFlipped(match)).toBe(true)
   })
   it('should confirm before resetGame is called if we are not in a `win` state', () => {
-    const { startGame, flipCard, resetGame, cards, state, cardIsFlipped } = useGameManager()
+    const { startGame, flipCard, resetGame, cards, cardIsFlipped } = useMemoryGameManager()
 
     startGame()
     
@@ -140,18 +140,18 @@ describe('useGameManager', () => {
   
   // todo - need to figure out how to mock `useTimeoutFn` so that we can spy on `start` and `stop`
   it.skip('should start the timer after a card is flipped', () => {
-    const { startGame, flipCard, cards } = useGameManager()
+    const { startGame, flipCard, cards } = useMemoryGameManager()
 
     startGame()
     
     const card = cards.value[0]
-    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id)
+    const nonMatch = cards.value.find(c => c.value !== card.value && c.id !== card.id) as MemoryCard
     
     flipCard(card)
     flipCard(nonMatch)
 
     // todo: how can this be mocked to ensure `startTimer` is called and not break the other tests?
-    expect(startTimeoutMock).toHaveBeenCalledOnce()
+    // expect(startTimeoutMock).toHaveBeenCalledOnce()
   })
   it.skip('should stop the previous timer after a card is flipped', () => {
 

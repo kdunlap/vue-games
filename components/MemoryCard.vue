@@ -30,11 +30,11 @@
 import { VueFlip } from 'vue-flip'
 
 export type Props = {
-  card: Card
+  card: MemoryCard
 }
 
 const { card } = defineProps<Props>()
-const { flipCard, cardIsFlipped, cardIsMatched } = useGameManager()
+const { flipCard, cardIsFlipped, cardIsMatched } = useMemoryGameManager()
 
 const isFlipped = computed(() => cardIsFlipped(card))
 const isMatched = computed(() => cardIsMatched(card))

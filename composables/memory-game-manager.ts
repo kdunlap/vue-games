@@ -1,19 +1,38 @@
 import { ref } from 'vue'
 import { useTimeoutFn } from '@vueuse/core'
 
-export type Card = {
+export type MemoryCard = {
   id: Number
   value: string
 }
 
-export type GameState = 'inactive' | 'active' | 'selecting' | 'match-found' | 'no-match' | 'win'
+export type MemoryGameState = 'inactive' | 'active' | 'selecting' | 'match-found' | 'no-match' | 'win'
 
 export const BOARD_SIZE = 8
 export const FLIPPED_CARD_TIMEOUT = 3000
 
-const state = ref<GameState>('inactive')
-const gameDeck = ref<Card[]>([])
-const flippedCards = ref<Card[]>([])
+const availableCards: MemoryCard[] = [
+  { id: 0, value: 'A' },
+  { id: 0, value: 'B' },
+  { id: 0, value: 'C' },
+  { id: 0, value: 'D' },
+  { id: 0, value: 'E' },
+  { id: 0, value: 'F' },
+  { id: 0, value: 'G' },
+  { id: 0, value: 'H' },
+  { id: 0, value: 'I' },
+  { id: 0, value: 'J' },
+  { id: 0, value: 'K' },
+  { id: 0, value: 'L' },
+  { id: 0, value: 'M' },
+  { id: 0, value: 'N' },
+  { id: 0, value: 'O' },
+  { id: 0, value: 'P' },
+]
+
+const state = ref<MemoryGameState>('inactive')
+const gameDeck = ref<MemoryCard[]>([])
+const flippedCards = ref<MemoryCard[]>([])
 const matchedCards = ref<String[]>([])
 
 const {
@@ -28,8 +47,8 @@ const {
   state.value = 'active' 
 }, FLIPPED_CARD_TIMEOUT, { immediate: false })
 
-export function useGameManager() {
-  const { availableCards, shuffle } = useDeckUtils()
+export function useMemoryGameManager() {
+  const { shuffle } = useDeckUtils()
 
   function startGame() {
     // duplicate available cards and set unique ids
@@ -42,7 +61,7 @@ export function useGameManager() {
     state.value = 'active'
   }
 
-  function flipCard(card: Card) {
+  function flipCard(card: MemoryCard) {
     // don't flip card if it is already flipped over
     if(cardIsFlipped(card) || cardIsMatched(card)) return
 
@@ -89,11 +108,11 @@ export function useGameManager() {
     }
   }
 
-  function cardIsFlipped(card: Card) {
+  function cardIsFlipped(card: MemoryCard) {
     return flippedCards.value.find(c => c.id === card.id) !== undefined || cardIsMatched(card)
   }
 
-  function cardIsMatched(card: Card) {
+  function cardIsMatched(card: MemoryCard) {
     return matchedCards.value.find(val => val === card.value) !== undefined
   }
 
