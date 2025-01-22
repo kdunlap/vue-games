@@ -21,6 +21,7 @@
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
   "devDependencies": {
     "@nuxt/test-utils": "^3.15.4",
+    "@playwright/test": "^1.49.1",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^16.7.1",
     "playwright-core": "^1.49.1",

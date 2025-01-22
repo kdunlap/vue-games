@@ -92,7 +92,6 @@ export function useMemoryGameManager() {
     }
 
     if(state.value !== 'win') {
-      console.log("start timer")
       startTimer()
     }
   }
