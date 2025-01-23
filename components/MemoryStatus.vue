@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center ml-8 text-xl font-bold">
+  <div class="flex items-center text-xl font-bold">
     <p v-if="state === 'active'">Select a card</p>
     <p v-if="state === 'selecting'">Select another card</p>
     <p v-else-if="state === 'no-match'" class="text-red-600">Not a match</p>

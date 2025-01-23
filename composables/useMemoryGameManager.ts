@@ -32,6 +32,7 @@ const state = ref<MemoryGameState>('inactive')
 const gameDeck = ref<MemoryCard[]>([])
 const flippedCards = ref<MemoryCard[]>([])
 const matchedCards = ref<String[]>([])
+const guesses = ref<number>(0)
 
 const { start: startTimer } = useTimeoutFn(() => {
   if(state.value === 'win') return
@@ -54,6 +55,7 @@ export function useMemoryGameManager() {
     matchedCards.value = []
     flippedCards.value = []
     state.value = 'active'
+    guesses.value = 0
   }
 
   function flipCard(card: MemoryCard) {
@@ -75,6 +77,7 @@ export function useMemoryGameManager() {
     }
 
     // There should always be 2 flipped cards after this point
+    guesses.value += 1
 
     // match found
     if(flippedCards.value[0].value === flippedCards.value[1].value) {
@@ -99,6 +102,7 @@ export function useMemoryGameManager() {
       state.value = 'inactive'
       flippedCards.value = []
       gameDeck.value = []
+      guesses.value = 0
     }
   }
 
@@ -113,6 +117,7 @@ export function useMemoryGameManager() {
   return {
     cards: gameDeck,
     state,
+    guesses,
     startGame,
     resetGame,
     flipCard,

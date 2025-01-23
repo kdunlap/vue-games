@@ -155,4 +155,26 @@ describe('useMemoryGameManager', () => {
 
     expect(vi.getTimerCount()).toBe(0)
   })
+  it('should increase total moves when a pair of cards are fliped', () => {
+    const { startGame, flipCard, cards, guesses } = useMemoryGameManager()
+
+    startGame()
+    
+    const card1 = cards.value[0]
+    const card2 = cards.value[1]
+    const card3 = cards.value[2]
+    const card4 = cards.value[3]
+
+    flipCard(card1)
+    expect(guesses.value).toBe(0)
+
+    flipCard(card2)
+    expect(guesses.value).toBe(1)
+
+    flipCard(card3)
+    expect(guesses.value).toBe(1)
+
+    flipCard(card4)
+    expect(guesses.value).toBe(2)
+  })
 })

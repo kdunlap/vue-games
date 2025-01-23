@@ -2,9 +2,12 @@
   <div class="w-fit">
     <ConfettiExplosion v-if="state === 'win'"/>
 
-    <div class="flex justify-stretch">
+    <div class="flex justify-stretch items-center">
       <MemoryControls />
-      <MemoryStatus :state="state" class="flex-1" />
+      <div v-if="state !== 'inactive'" class="ml-4">
+        <p>Total Guesses: {{ guesses }}</p>
+      </div>
+      <MemoryStatus :state="state" class="flex-1 ml-8" />
     </div>
 
     <div class="grid grid-cols-4 grid-rows-4 grid-flow-dense gap-2 mt-4" data-testid="game-board">
@@ -24,5 +27,5 @@
 <script setup lang="ts">
 import ConfettiExplosion from "vue-confetti-explosion";
 
-const { cards, state } = useMemoryGameManager()
+const { cards, state, guesses } = useMemoryGameManager()
 </script>
