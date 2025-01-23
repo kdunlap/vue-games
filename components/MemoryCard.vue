@@ -2,8 +2,8 @@
   <vue-flip 
     class="text-5xl font-bold cursor-pointer" 
     v-model="isFlipped"
-    height="128px"
-    width="128px"  
+    height="150px"
+    width="150px"  
     @click="() => flipCard(card)"
   >
     <!-- front/back are swapped on purpose to better work with vue-flip -->
@@ -11,15 +11,13 @@
       <div class="bg-slate-900 h-full w-full">&nbsp;</div>
     </template>
     <template v-slot:back>
-      <div 
-        class="flex justify-center items-center h-full w-full"
+      <MemoryCardImage 
+        :card="card" 
+        class="h-full w-full border" 
         :class="{ 
-          'bg-slate-400': !isMatched,
-          'bg-green-300': isMatched
-        }"
-      >
-        {{ isFlipped ? card.value : '' }}
-      </div>
+          'border-green-300': isMatched,
+        }" 
+      />
     </template>
   </vue-flip>
   

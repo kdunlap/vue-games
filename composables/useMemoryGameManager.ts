@@ -4,6 +4,10 @@ import { useTimeoutFn } from '@vueuse/core'
 export type MemoryCard = {
   id: Number
   value: string
+  coords: {
+    x: number
+    y: number
+  }
 }
 
 export type MemoryGameState = 'inactive' | 'active' | 'selecting' | 'match-found' | 'no-match' | 'win'
@@ -12,22 +16,16 @@ export const BOARD_SIZE = 8
 export const FLIPPED_CARD_TIMEOUT = 3000
 
 const availableCards: MemoryCard[] = [
-  { id: 0, value: 'A' },
-  { id: 0, value: 'B' },
-  { id: 0, value: 'C' },
-  { id: 0, value: 'D' },
-  { id: 0, value: 'E' },
-  { id: 0, value: 'F' },
-  { id: 0, value: 'G' },
-  { id: 0, value: 'H' },
-  { id: 0, value: 'I' },
-  { id: 0, value: 'J' },
-  { id: 0, value: 'K' },
-  { id: 0, value: 'L' },
-  { id: 0, value: 'M' },
-  { id: 0, value: 'N' },
-  { id: 0, value: 'O' },
-  { id: 0, value: 'P' },
+  { id: 0, value: 'A', coords: { x: 49, y: 223 } },
+  { id: 0, value: 'B', coords: { x: 227, y: 223 } },
+  { id: 0, value: 'C', coords: { x: 405, y: 223 } },
+  { id: 0, value: 'D', coords: { x: 583, y: 223 } },
+  { id: 0, value: 'E', coords: { x: 761, y: 223 } },
+  { id: 0, value: 'F', coords: { x: 49, y: 403 } },
+  { id: 0, value: 'G', coords: { x: 405, y: 403 } },
+  { id: 0, value: 'H', coords: { x: 583, y: 403 } },
+  { id: 0, value: 'I', coords: { x: 761, y: 403 } },
+  { id: 0, value: 'J', coords: { x: 49, y: 583 } },
 ]
 
 const state = ref<MemoryGameState>('inactive')

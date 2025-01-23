@@ -6,7 +6,7 @@ describe('MemoryCard.vue', () => {
   it('should render', () => {
     const wrapper = mount(MemoryCard, {
       props: {
-        card: { id: 0, value: 'A' }
+        card: { id: 0, value: 'A', coords: { x: 0, y: 0 } }
       }
     })
     expect(wrapper).toBeTruthy()
