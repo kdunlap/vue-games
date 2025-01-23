@@ -4,7 +4,7 @@ import MemoryBoard from '~/components/MemoryBoard.vue'
 import MemoryCard from '~/components/MemoryCard.vue'
 import MemoryControls from '~/components/MemoryControls.vue'
 import MemoryStatus from '~/components/MemoryStatus.vue'
-import { BOARD_SIZE } from '~/composables/useMemoryGameManager'
+import { BOARD_SIZE } from '~/composables/useMemoryGame'
 
 describe('MemoryBoard.vue', () => {
   it('should render with no board', () => {

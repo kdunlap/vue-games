@@ -32,7 +32,7 @@ export type Props = {
 }
 
 const { card } = defineProps<Props>()
-const { flipCard, cardIsFlipped, cardIsMatched } = useMemoryGameManager()
+const { flipCard, cardIsFlipped, cardIsMatched } = useMemoryGame()
 
 const isFlipped = computed(() => cardIsFlipped(card))
 const isMatched = computed(() => cardIsMatched(card))

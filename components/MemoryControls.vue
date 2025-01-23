@@ -6,5 +6,5 @@
 </template>
 
 <script setup lang="ts">
-const { startGame, resetGame, state } = useMemoryGameManager()
+const { startGame, resetGame, state } = useMemoryGame()
 </script>

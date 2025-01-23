@@ -9,7 +9,7 @@ describe('MemoryControls.vue', () => {
     expect(button.text()).toBe('Start Game')
   })
   it('should render `Reset Game` after game has been started', async () => {
-    const { startGame } = useMemoryGameManager()
+    const { startGame } = useMemoryGame()
     startGame()
 
     const wrapper = mount(MemoryControls)

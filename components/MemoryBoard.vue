@@ -27,5 +27,5 @@
 <script setup lang="ts">
 import ConfettiExplosion from "vue-confetti-explosion";
 
-const { cards, state, guesses } = useMemoryGameManager()
+const { cards, state, guesses } = useMemoryGame()
 </script>

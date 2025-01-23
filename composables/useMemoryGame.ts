@@ -35,7 +35,7 @@ const matchedCards = ref<String[]>([])
 const guesses = ref<number>(0)
 
 const { start: startTimer } = useTimeoutFn(() => {
-  if(state.value === 'win') return
+  if(state.value === 'win' || state.value === 'inactive') return
 
   if(state.value === 'no-match') {
     flippedCards.value = []
@@ -43,7 +43,7 @@ const { start: startTimer } = useTimeoutFn(() => {
   state.value = 'active' 
 }, FLIPPED_CARD_TIMEOUT, { immediate: false })
 
-export function useMemoryGameManager() {
+export function useMemoryGame() {
   const { shuffle } = useDeckUtils()
 
   function startGame() {

@@ -1,24 +1,24 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { useMemoryGameManager, FLIPPED_CARD_TIMEOUT, type MemoryCard } from '~/composables/useMemoryGameManager'
+import { useMemoryGame, FLIPPED_CARD_TIMEOUT, type MemoryCard } from '~/composables/useMemoryGame'
 
 const { confirmMock } = vi.hoisted(() => ({
   confirmMock: vi.fn()
 }))
 vi.stubGlobal('confirm', confirmMock)
 
-describe('useMemoryGameManager', () => {
+describe('useMemoryGame', () => {
   afterEach(() => {
-    const { resetGame } = useMemoryGameManager()
+    const { resetGame } = useMemoryGame()
     resetGame()
     
     vi.resetAllMocks()
   })
   it('should initialize to `inactive` state', () => {
-    const { state } = useMemoryGameManager()
+    const { state } = useMemoryGame()
     expect(state.value).toBe('inactive')
   })
   it('should initialize a deck of pairs', () => {
-    const { startGame, cards } = useMemoryGameManager()
+    const { startGame, cards } = useMemoryGame()
 
     startGame()
 
@@ -36,14 +36,14 @@ describe('useMemoryGameManager', () => {
     expect(Object.values(found).every(total => total === 2)).toBe(true)
   })
   it('should have `active` state after starting the game', () => {
-    const { startGame, state } = useMemoryGameManager()
+    const { startGame, state } = useMemoryGame()
 
     startGame()
 
     expect(state.value).toBe('active')
   })
   it('should flip a single card and be in the `selecting` state', () => {
-    const { startGame, flipCard, cardIsFlipped, cards, state } = useMemoryGameManager()
+    const { startGame, flipCard, cardIsFlipped, cards, state } = useMemoryGame()
 
     startGame()
     
@@ -54,7 +54,7 @@ describe('useMemoryGameManager', () => {
     expect(cardIsFlipped(card)).toBe(true)
   })
   it('should flip two matching cards and be in the `match-found` state', () => {
-    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGameManager()
+    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGame()
 
     startGame()
     
@@ -72,7 +72,7 @@ describe('useMemoryGameManager', () => {
     expect(cardIsMatched(match)).toBe(true)
   })
   it('should flip two non-matching cards and be in the `match-found` state', () => {
-    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGameManager()
+    const { startGame, flipCard, cardIsFlipped, cardIsMatched, cards, state } = useMemoryGame()
 
     startGame()
     
@@ -92,7 +92,7 @@ describe('useMemoryGameManager', () => {
   it('should automatically change from `no-match` state to `active` after some time', async () => {    
     vi.useFakeTimers()
 
-    const { startGame, flipCard, cards, state } = useMemoryGameManager()
+    const { startGame, flipCard, cards, state } = useMemoryGame()
 
     startGame()
     
@@ -109,7 +109,7 @@ describe('useMemoryGameManager', () => {
     expect(state.value).toBe('active')
   })
   it('should not flip more than 2 cards at once', () => {
-    const { startGame, flipCard, cardIsFlipped, cards } = useMemoryGameManager()
+    const { startGame, flipCard, cardIsFlipped, cards } = useMemoryGame()
 
     startGame()
     
@@ -126,7 +126,7 @@ describe('useMemoryGameManager', () => {
     expect(cardIsFlipped(match)).toBe(true)
   })
   it('should confirm before resetGame is called if we are not in a `win` state', () => {
-    const { startGame, flipCard, resetGame, cards, cardIsFlipped } = useMemoryGameManager()
+    const { startGame, flipCard, resetGame, cards, cardIsFlipped } = useMemoryGame()
 
     startGame()
     
@@ -139,7 +139,7 @@ describe('useMemoryGameManager', () => {
   })
   it('should start a timer after two cards are flipped', () => {
     vi.useFakeTimers()
-    const { startGame, flipCard, cards } = useMemoryGameManager()
+    const { startGame, flipCard, cards } = useMemoryGame()
 
     startGame()
     
@@ -156,7 +156,7 @@ describe('useMemoryGameManager', () => {
     expect(vi.getTimerCount()).toBe(0)
   })
   it('should increase total moves when a pair of cards are fliped', () => {
-    const { startGame, flipCard, cards, guesses } = useMemoryGameManager()
+    const { startGame, flipCard, cards, guesses } = useMemoryGame()
 
     startGame()
     

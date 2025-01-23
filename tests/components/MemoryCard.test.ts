@@ -13,7 +13,7 @@ describe('MemoryCard.vue', () => {
   })
 
   it('should flip card when clicked', async () => {
-    const { startGame, cards } = useMemoryGameManager()
+    const { startGame, cards } = useMemoryGame()
     startGame()
 
     const card = cards.value[0]
