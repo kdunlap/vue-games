@@ -1,5 +1,5 @@
 <template>
-  <div class="w-fit">
+  <div class="w-fit mx-auto">
     <ConfettiExplosion v-if="state === 'win'"/>
 
     <div class="flex justify-stretch items-center">
