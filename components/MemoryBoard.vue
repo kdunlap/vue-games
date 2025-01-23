@@ -1,5 +1,7 @@
 <template>
   <div class="w-fit">
+    <ConfettiExplosion v-if="state === 'win'"/>
+
     <div class="flex justify-stretch">
       <MemoryControls />
       <MemoryStatus :state="state" class="flex-1" />
@@ -15,9 +17,12 @@
     <div v-if="state !== 'inactive'" class="mt-8">
       <p class="text-xs underline"><a href="https://www.vecteezy.com/free-vector/memory-game" target="_blank">Memory Game Vectors by Vecteezy</a></p>
     </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
+import ConfettiExplosion from "vue-confetti-explosion";
+
 const { cards, state } = useMemoryGameManager()
 </script>

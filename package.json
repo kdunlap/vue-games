@@ -15,6 +15,7 @@
     "@vueuse/core": "^12.4.0",
     "nuxt": "^3.15.2",
     "vue": "latest",
+    "vue-confetti-explosion": "^1.0.2",
     "vue-flip": "^3.0.2",
     "vue-router": "latest"
   },
