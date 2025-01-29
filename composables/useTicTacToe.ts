@@ -21,7 +21,7 @@ function getDefaultBoard(): TicTacToeCellValue[][] {
 export function useTicTacToe() {
 
   function isWinningCell(x: number, y: number): boolean {
-    return state.value === 'win' && winningCells.value[`${x},${y}`]
+    return state.value === 'win' && winningCells.value[`${x},${y}`] === true
   }
 
   function restartGame() {

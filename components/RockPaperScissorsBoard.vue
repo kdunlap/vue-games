@@ -27,8 +27,6 @@
 </template>
 
 <script setup lang="ts">
-  import ConfettiExplosion from "vue-confetti-explosion"
-
   const { playerMove, computerMove, state, selectPlayerMove } = useRockPaperScissors()
 </script>
 

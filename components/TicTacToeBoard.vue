@@ -3,7 +3,7 @@
     <ConfettiExplosion v-if="state === 'win'"/>
     
     <div class="flex justify-center items-center gap-2 my-8">
-      <p>Board Size: </p><TicTacToeBoardSizeStepper v-model="boardSize" />
+      <p>Board Size: </p><InputNumberStepper :min="3" :max="5" v-model="boardSize" />
     </div>
 
     <TicTacToeStatus class="my-8" />
@@ -16,10 +16,10 @@
         'grid-cols-5 grid-rows-5': boardSize === 5,
         'grid-cols-6 grid-rows-6': boardSize === 6
       }"
-      data-testid="game-board"
+      data-test="game-grid"
     >
       <template v-for="(row, rowIndex) in board">
-        <p 
+        <button 
           v-for="(cell, colIndex) in row"
           class="flex items-center justify-center h-28 w-28 text-3xl cursor-pointer"
           :class="[
@@ -28,7 +28,7 @@
           @click="(evt) => selectCell(rowIndex, colIndex)"
         >
           {{ cell }}
-        </p>
+        </button>
       </template>
     </div>
 
@@ -36,7 +36,5 @@
 </template>
 
 <script setup lang="ts">
-  import ConfettiExplosion from "vue-confetti-explosion"
-
   const { board, state, boardSize, isWinningCell, selectCell } = useTicTacToe()
 </script>

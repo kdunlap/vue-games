@@ -3,10 +3,11 @@
     <button 
       class=" border rounded-tl-md rounded-bl-md border-r-slate-500 w-8 h-8"
       :class="{
-        'bg-slate-200': boardSize === min
+        'bg-slate-200': model === min
       }"
-      :disabled="boardSize === min"
+      :disabled="model === min"
       @click="decrement"
+      data-test="decrement-button"
     >
       -
     </button>
@@ -16,15 +17,16 @@
       type="text" 
       :min="min" 
       :max="max" 
-      v-model="boardSize" 
+      v-model="model"
     />
     <button 
       class="border rounded-tr-md rounded-br-md border-l-slate-500 w-8 h-8"
       :class="{
-        'bg-slate-200': boardSize === max
+        'bg-slate-200': model === max
       }"
-      :disabled="boardSize === max"
+      :disabled="model === max"
       @click="increment"
+      data-test="increment-button"
     >
       +
     </button>
@@ -36,18 +38,18 @@ type Props = {
   min?: number,
   max?: number
 }
-const { min, max } = withDefaults(defineProps<Props>(), { min: 3, max: 6 })
-const boardSize = defineModel<number>({ default: 3 })
+const { min = 0, max = 10 } = defineProps<Props>()
+const model = defineModel<number>({ default: 0 })
 
 function increment() {
-  if(boardSize.value < max) {
-    boardSize.value += 1
+  if(model.value < max) {
+    model.value += 1
   }
 }
 
 function decrement() {
-  if(boardSize.value > min) {
-    boardSize.value -= 1
+  if(model.value > min) {
+    model.value -= 1
   }
 }
 </script>
