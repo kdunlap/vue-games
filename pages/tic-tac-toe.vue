@@ -6,6 +6,8 @@
       <p class="flex-1">&nbsp;</p>
     </div>
 
+    <TicTacToeBoard class="my-8" />
+
   </div>
 </template>
 

@@ -4,8 +4,8 @@
     <ul class="list-disc pl-8 mt-8">
       <li><nuxt-link to="/memory" class="underline">Memory</nuxt-link></li>
       <li><nuxt-link to="/tic-tac-toe" class="underline">Tic, Tac, Toe</nuxt-link></li>
-      <li><nuxt-link to="/rock-paper-scissors" class="underline">Rock, Paper, Scissors</nuxt-link></li>
       <li><nuxt-link to="/connect-four" class="underline">Connect Four</nuxt-link></li>
+      <li><nuxt-link to="/rock-paper-scissors" class="underline">Rock, Paper, Scissors</nuxt-link></li>
     </ul>
   </div>
 </template>

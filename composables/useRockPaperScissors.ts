@@ -1,9 +1,9 @@
 export type Move = 'rock' | 'paper' | 'scissors'
-export type State = 'select' | 'win' | 'lose' | 'tie'
+export type RockPaperScissorsState = 'select' | 'win' | 'lose' | 'tie'
 
 const playerMove = ref<Move | undefined>()
 const computerMove = ref<Move | undefined>()
-const state = ref<State>('select')
+const state = ref<RockPaperScissorsState>('select')
 
 export function useRockPaperScissors() {
   function restartGame() {
