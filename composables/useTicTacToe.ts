@@ -6,19 +6,20 @@ export type TicTacToeState = 'active' | 'win' | 'tie'
 type WinningCell = {
   [key: string]: boolean
 }
-const boardSize = ref(3)
-
-const totalMoves = ref(0)
-const board = ref<TicTacToeCellValue[][]>(getDefaultBoard())
-const turn = ref<TicTacToeTurn>('X')
-const state = ref<TicTacToeState>('active')
-const winningCells = ref<WinningCell>({})
-
-function getDefaultBoard(): TicTacToeCellValue[][] {
-  return Array.from({ length: boardSize.value }, () => Array(boardSize.value).fill(''))
-}
 
 export function useTicTacToe() {
+
+  const boardSize = ref(3)
+
+  const totalMoves = ref(0)
+  const board = ref<TicTacToeCellValue[][]>(getDefaultBoard())
+  const turn = ref<TicTacToeTurn>('X')
+  const state = ref<TicTacToeState>('active')
+  const winningCells = ref<WinningCell>({})
+
+  function getDefaultBoard(): TicTacToeCellValue[][] {
+    return Array.from({ length: boardSize.value }, () => Array(boardSize.value).fill(''))
+  }
 
   function isWinningCell(x: number, y: number): boolean {
     return state.value === 'win' && winningCells.value[`${x},${y}`] === true

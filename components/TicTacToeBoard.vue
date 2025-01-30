@@ -1,13 +1,14 @@
 <template>
   <div class="w-fit mx-auto">
-    <ConfettiExplosion v-if="state === 'win'"/>
-    
-    <div class="flex justify-center items-center gap-2 my-8">
-      <p>Board Size: </p><InputNumberStepper :min="3" :max="5" v-model="boardSize" />
+    <div v-if="showControls">
+      <ConfettiExplosion v-if="state === 'win'"/>
+      
+      <div class="flex justify-center items-center gap-2 my-8">
+        <p>Board Size: </p><InputNumberStepper :min="3" :max="5" v-model="boardSize" />
+      </div>
+
+      <TicTacToeStatus class="my-8" :state="state" :turn="turn" @restartGame="restartGame" />
     </div>
-
-    <TicTacToeStatus class="my-8" />
-
     <div 
       class="grid gap-1 bg-slate-400" 
       :class="{
@@ -36,5 +37,10 @@
 </template>
 
 <script setup lang="ts">
-  const { board, state, boardSize, isWinningCell, selectCell } = useTicTacToe()
+  type Props = {
+    showControls?: boolean
+  }
+  const { showControls = true } = defineProps<Props>()
+
+  const { board, state, turn, boardSize, isWinningCell, selectCell, restartGame } = useTicTacToe()
 </script>
