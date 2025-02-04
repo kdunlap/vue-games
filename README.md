@@ -1,6 +1,8 @@
-# Nuxt Minimal Starter
+# 🎮 Sample Games Application
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This project is a collection of simple web-based games, originally inspired by creating fun activities for my younger nephews. It serves as a playground to practice application development and experiment with new ideas beyond my day-to-day work.
+
+While the current games are simple and geared toward younger audiences, I plan to update this repository with more complex games over time.
 
 ## Setup
 
